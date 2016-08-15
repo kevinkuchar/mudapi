@@ -1,4 +1,5 @@
 <?php
+//Routes
 
 $app->get('/blog', 'PostController:getAll');
 $app->get('/blog/{id}', 'PostController:getById');
