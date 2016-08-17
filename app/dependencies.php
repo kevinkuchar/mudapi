@@ -2,6 +2,7 @@
 // DIC configuration
 
 use App\Controllers;
+use App\Services;
 
 $container = $app->getContainer();
 
@@ -24,8 +25,15 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
+//services
+$container['PostService'] = function ($c) {
+    $table = $c->get('db')->table('posts');
+    return new Services\PostService($table);
+};
+
+
 // controllers
 $container['PostController'] = function ($c) {
-    $table = $c->get('db')->table('posts');
-    return new Controllers\PostController($table);
+    $post_service = $c->get('PostService');
+    return new Controllers\PostController($post_service);
 };

@@ -2,48 +2,42 @@
 
 namespace App\Controllers;
 
-use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use App\Models;
+use App\Services;
 
 class PostController
 {
-    protected $table;
+    protected $post_service;
 
-    public function __construct(Builder $table)
+    public function __construct(Services\PostService $post_service)
     {
-        $this->table = $table;
+        $this->post_service = $post_service;
     }
     
     public function getAll(Request $request, Response $response, $args)
     {
-        $response = Models\Post::all();
-        return json_encode($response);
+        $data = $this->post_service->GetList();
+        return $response->withJson($data, 200);
     }
     
     public function getById(Request $request, Response $response, $args)
     {
         $post_id = (int)$args['id'];
-        $response = Models\Post::find($post_id);
-        
-        if ($response) {
-            return json_encode($response);    
-        }
-        return json_encode([
-            "message" => "no results found"
-        ]);
+        $data = $this->post_service->GetById($post_id);
+        return $response->withJson($data, 200);
     }
     
-    public function insert(Request $request, Response $response, $args)
+    public function createPost(Request $request, Response $response, $args)
     {
         $data = $request->getParsedBody();        
        
-        $response = Models\Post::create([
+        $data = Models\Post::create([
             'title'   => filter_var($data['title'], FILTER_SANITIZE_STRING),
             'content' => filter_var($data['content'], FILTER_SANITIZE_STRING)
         ]);
         
-        return json_encode($response);
+        return $response->withJson($data, 201);
     }    
 }

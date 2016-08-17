@@ -1,6 +1,6 @@
 <?php
 //Routes
 
-$app->get('/blog', 'PostController:getAll');
-$app->get('/blog/{id}', 'PostController:getById');
-$app->post('/blog/add', 'PostController:insert');
+$app->get('/post', 'PostController:getAll');
+$app->post('/post', 'PostController:createPost');
+$app->get('/post/{id}', 'PostController:getById');
