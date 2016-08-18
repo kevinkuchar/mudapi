@@ -1,12 +1,10 @@
 <?php
-// DIC configuration
 
-use App\Controllers;
-use App\Services;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 $container = $app->getContainer();
 
-// monolog
+// Logger
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
     $file_handler = new \Monolog\Handler\StreamHandler("../logs/app.log");
@@ -14,26 +12,20 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
-//eloquent database
-$container['db'] = function ($container) {
-    $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($container['settings']['db']);
+// Database
+$capsule = new Capsule;
+$capsule->addConnection($container['settings']['db']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
 
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-
-    return $capsule;
-};
 
 //services
 $container['PostService'] = function ($c) {
-    $table = $c->get('db')->table('posts');
-    return new Services\PostService($table);
+    return new App\Services\PostService();
 };
-
 
 // controllers
 $container['PostController'] = function ($c) {
     $post_service = $c->get('PostService');
-    return new Controllers\PostController($post_service);
+    return new App\Controllers\PostController($post_service);
 };
