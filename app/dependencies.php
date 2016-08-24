@@ -31,7 +31,6 @@ $container['PostService'] = function ($c) {
     return new Services\PostService($table);
 };
 
-
 // controllers
 $container['PostController'] = function ($c) {
     $post_service = $c->get('PostService');

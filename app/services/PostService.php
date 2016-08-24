@@ -30,8 +30,8 @@ class PostService
     public function Add($data)
     {
         $data = Models\Post::create([
-            'title'   => filter_var($data['title'], FILTER_SANITIZE_STRING),
-            'content' => filter_var($data['content'], FILTER_SANITIZE_STRING)
+            'title'   => $data['title'],
+            'content' => $data['content']
         ]);
         
         return $data;
