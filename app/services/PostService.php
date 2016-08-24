@@ -2,16 +2,15 @@
 
 namespace App\Services;
 
-use Illuminate\Database\Query\Builder;
 use App\Models;
 
 class PostService
 {
     protected $table;
 
-    public function __construct(Builder $table)
+    public function __construct()
     {
-        $this->table = $table;
+        
     }
     
     public function GetList()
@@ -22,18 +21,27 @@ class PostService
     
     public function GetById($post_id)
     {
-        $post_id = (int)$post_id;
         $data = Models\Post::find($post_id);
         return $data;
     }
     
+    public function Edit($post_id, $data)
+    {
+        $post = $this->GetById($post_id);
+        $post->title = $data['title'];
+        $post->content = $data['content'];
+        $post->save();
+
+        return $post;
+    }
+
     public function Add($data)
     {
-        $data = Models\Post::create([
+        $post = Models\Post::create([
             'title'   => $data['title'],
             'content' => $data['content']
         ]);
         
-        return $data;
+        return $post;
     }
 }

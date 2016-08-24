@@ -1,6 +1,15 @@
 <?php
-//Routes
+//Web Route
+$app->get('/', function ($request, $response, $args) {
+    $data = [
+        "name" => "Kevin!"
+    ];
+    return $this->renderer->render($response, "app.php", $data);
+});
 
-$app->get('/post', 'PostController:getAll');
+//api
+$app->get('/post', 'PostController:getAllPosts');
+$app->get('/post/{id}', 'PostController:getPostById');
 $app->post('/post', 'PostController:createPost');
-$app->get('/post/{id}', 'PostController:getById');
+$app->post('/post/{id}', 'PostController:editPost');
+
