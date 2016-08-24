@@ -19,7 +19,7 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 
-$container['renderer'] = new \Slim\Views\PhpRenderer("./");
+$container['renderer'] = new \Slim\Views\PhpRenderer("../web/");
 
 //services
 $container['PostService'] = function ($c) {
