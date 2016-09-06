@@ -5,24 +5,17 @@ namespace App\Services;
 use App\Models;
 
 class PostService
-{
-    protected $table;
-
-    public function __construct()
-    {
-        
-    }
-    
+{    
     public function GetList()
     {
-        $data = Models\Post::all();
-        return $data;
+        $post = Models\Post::all();
+        return $post;
     }
     
     public function GetById($post_id)
     {
-        $data = Models\Post::find($post_id);
-        return $data;
+        $post = Models\Post::find($post_id);
+        return $post;
     }
     
     public function Edit($post_id, $data)
