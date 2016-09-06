@@ -4,6 +4,12 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $container = $app->getContainer();
 
+// Database
+$capsule = new Capsule;
+$capsule->addConnection($container['settings']['db']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
 // Logger
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
@@ -11,15 +17,6 @@ $container['logger'] = function($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
-
-// Database
-$capsule = new Capsule;
-$capsule->addConnection($container['settings']['db']);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
-
-
-$container['renderer'] = new \Slim\Views\PhpRenderer("../web/");
 
 //services
 $container['PostService'] = function ($c) {
