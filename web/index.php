@@ -6,8 +6,6 @@
     <title>Kevins Blog Rules</title>
   </head>
   <body>
-    <div id="app">
-        <h2>Tacos</h2>
-    </div>
+    <div id="app"></div>
   </body>
 </html>
