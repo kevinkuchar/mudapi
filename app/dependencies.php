@@ -28,3 +28,7 @@ $container['PostController'] = function ($c) {
     $post_service = $c->get('PostService');
     return new App\Controllers\PostController($post_service);
 };
+
+$container['ListController'] = function ($c) {
+    return new App\Controllers\ListController();
+};
