@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListItem extends Model
 {
-    protected $fillable = ['item_name'];
+    protected $fillable = ['item_name', 'is_complete'];
 
     /**
     * Get the post that owns the comment.

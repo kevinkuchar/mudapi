@@ -30,5 +30,6 @@ $container['PostController'] = function ($c) {
 };
 
 $container['ListController'] = function ($c) {
-    return new App\Controllers\ListController();
+    $repository = new App\Data\ListRepository( new App\Models\ToDoList() );
+    return new App\Controllers\ListController($repository);
 };

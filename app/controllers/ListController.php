@@ -6,14 +6,21 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use App\Models\ToDoList;
+use App\Data\ListRepository;
 
 class ListController
 {
-    public function __construct() { }
+    protected $list_repository;
+
+    public function __construct(ListRepository $list_repository) {
+        $this->list_repository = $list_repository;
+    }
     
     public function getAll(Request $request, Response $response, $args)
     {
-        $data = ToDoList::all();
+        $data = $this->list_repository->all();
+        //var_dump($this->list_repository);exit;
+        //$data = ToDoList::all();
         return $response->withJson($data, 200);
     }
 
