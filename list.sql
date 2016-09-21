@@ -1,421 +1,70 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : kevinkuchar.com
-Source Server Version : 50548
-Source Host           : 108.167.160.20:3306
-Source Database       : kevinkuc_db
+Source Server         : Local Host
+Source Server Version : 50626
+Source Host           : localhost:3306
+Source Database       : mud
 
 Target Server Type    : MYSQL
-Target Server Version : 50548
+Target Server Version : 50626
 File Encoding         : 65001
 
-Date: 2016-09-20 22:29:10
+Date: 2016-09-20 22:51:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
--- Table structure for `list`
+-- Table structure for `list_items`
 -- ----------------------------
-DROP TABLE IF EXISTS `list`;
-CREATE TABLE `list` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `list_name` varchar(48) DEFAULT NULL,
-  `list_item` varchar(255) DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  `complete` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=878 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `list_items`;
+CREATE TABLE `list_items` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `list_id` int(11) NOT NULL,
+  `item_name` varchar(64) DEFAULT NULL,
+  `is_complete` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_list_id` (`list_id`),
+  CONSTRAINT `fk_list_id` FOREIGN KEY (`list_id`) REFERENCES `lists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of list
+-- Records of list_items
 -- ----------------------------
-INSERT INTO `list` VALUES ('453', '0', 'Kevin\'s List', null, '2015-10-29 22:33:38', '0', '0');
-INSERT INTO `list` VALUES ('454', '453', null, 'The user must be able to enter a new, active task.', '2015-10-29 22:33:57', '1', '0');
-INSERT INTO `list` VALUES ('455', '453', null, 'Tasks entered must be displayed to the user in an acceptable format (for example: a list or a table).', '2015-10-29 22:34:03', '1', '0');
-INSERT INTO `list` VALUES ('456', '453', null, 'The user must be able to mark an active task as â€˜Completeâ€™.', '2015-10-29 22:34:07', '1', '0');
-INSERT INTO `list` VALUES ('457', '453', null, 'The user must be able to change a completed task back to â€˜Activeâ€™.', '2015-10-29 22:34:12', '1', '0');
-INSERT INTO `list` VALUES ('458', '453', null, 'The user must be able to delete an individual task.', '2015-10-29 22:34:17', '1', '0');
-INSERT INTO `list` VALUES ('459', '453', null, 'The user must be able to delete all completed tasks in a single action.', '2015-10-29 22:34:21', '1', '0');
-INSERT INTO `list` VALUES ('460', '453', null, 'The user must be able to toggle between showing all, only active, or only completed tasks.', '2015-10-29 22:34:27', '1', '0');
-INSERT INTO `list` VALUES ('461', '453', null, 'Completed tasks should be shown differently than active ones.', '2015-10-29 22:34:33', '1', '0');
-INSERT INTO `list` VALUES ('462', '453', null, 'The total number of active tasks should be displayed to the user.', '2015-10-29 22:34:38', '1', '0');
-INSERT INTO `list` VALUES ('501', '0', 'Test', null, '2015-10-29 23:29:58', '0', '0');
-INSERT INTO `list` VALUES ('502', '501', null, 'Tacos', '2015-10-29 23:30:04', '1', '0');
-INSERT INTO `list` VALUES ('503', '501', null, 'Bread', '2015-10-29 23:30:08', '1', '0');
-INSERT INTO `list` VALUES ('504', '501', null, 'Onions', '2015-10-29 23:30:14', '1', '0');
-INSERT INTO `list` VALUES ('505', '501', null, 'Milk', '2015-10-29 23:38:01', '1', '0');
-INSERT INTO `list` VALUES ('506', '501', null, 'Doritos ', '2015-10-29 23:38:14', '1', '0');
-INSERT INTO `list` VALUES ('507', '501', null, 'Bread', '2015-10-29 23:38:23', '1', '0');
-INSERT INTO `list` VALUES ('508', '501', null, 'Candy ', '2015-10-29 23:38:28', '1', '0');
-INSERT INTO `list` VALUES ('509', '0', 'issa\'s list', null, '2015-10-30 00:00:31', '0', '0');
-INSERT INTO `list` VALUES ('510', '509', null, 'feed pope', '2015-10-30 00:00:40', '1', '0');
-INSERT INTO `list` VALUES ('511', '509', null, 'do homework', '2015-10-30 00:00:42', '0', '0');
-INSERT INTO `list` VALUES ('512', '509', null, 'pet pope', '2015-10-30 00:01:01', '0', '0');
-INSERT INTO `list` VALUES ('513', '0', 'Ryan\'s List', null, '2015-10-30 04:33:14', '0', '0');
-INSERT INTO `list` VALUES ('514', '0', 'Ryan\'s List', null, '2015-10-30 04:33:28', '0', '0');
-INSERT INTO `list` VALUES ('515', '514', null, 'The thing', '2015-10-30 04:33:49', '1', '0');
-INSERT INTO `list` VALUES ('516', '0', 'ABC', null, '2015-10-30 08:37:41', '0', '0');
-INSERT INTO `list` VALUES ('517', '0', 'Test', null, '2015-10-30 08:38:20', '0', '0');
-INSERT INTO `list` VALUES ('518', '0', 'Groceries ', null, '2015-10-31 15:48:26', '0', '0');
-INSERT INTO `list` VALUES ('519', '518', null, 'Tomato paste ', '2015-10-31 15:48:39', '1', '0');
-INSERT INTO `list` VALUES ('520', '518', null, 'Halved tomatoes ', '2015-10-31 15:49:08', '0', '0');
-INSERT INTO `list` VALUES ('521', '518', null, 'Green peppers', '2015-10-31 15:49:15', '1', '0');
-INSERT INTO `list` VALUES ('522', '518', null, 'Frozen chicken ', '2015-10-31 15:49:31', '1', '0');
-INSERT INTO `list` VALUES ('523', '518', null, 'Mushrooms', '2015-10-31 16:03:14', '0', '0');
-INSERT INTO `list` VALUES ('524', '518', null, 'Eggs ', '2015-10-31 16:13:44', '1', '0');
-INSERT INTO `list` VALUES ('525', '518', null, 'Tortillas', '2015-10-31 16:14:26', '1', '0');
-INSERT INTO `list` VALUES ('526', '518', null, 'Onion', '2015-10-31 16:15:32', '1', '0');
-INSERT INTO `list` VALUES ('527', '518', null, 'El pato', '2015-10-31 16:15:49', '1', '0');
-INSERT INTO `list` VALUES ('528', '518', null, 'Beans', '2015-10-31 16:15:56', '1', '0');
-INSERT INTO `list` VALUES ('529', '518', null, 'Cheese', '2015-10-31 16:25:55', '1', '0');
-INSERT INTO `list` VALUES ('530', '518', null, 'Kitty food', '2015-10-31 16:26:53', '1', '0');
-INSERT INTO `list` VALUES ('531', '518', null, 'Laundry crystals ', '2015-10-31 16:27:02', '0', '0');
-INSERT INTO `list` VALUES ('532', '518', null, 'Green beans', '2015-10-31 16:39:54', '1', '0');
-INSERT INTO `list` VALUES ('533', '518', null, 'Granola bars', '2015-10-31 16:43:39', '1', '0');
-INSERT INTO `list` VALUES ('534', '518', null, 'Breakfast drinks', '2015-10-31 16:43:47', '1', '0');
-INSERT INTO `list` VALUES ('535', '518', null, 'Juice', '2015-10-31 16:50:18', '1', '0');
-INSERT INTO `list` VALUES ('536', '518', null, 'Limes', '2015-10-31 17:04:55', '1', '0');
-INSERT INTO `list` VALUES ('537', '0', 'Test List', null, '2015-11-10 15:30:54', '0', '0');
-INSERT INTO `list` VALUES ('538', '537', null, 'test', '2015-11-10 15:30:58', '0', '0');
-INSERT INTO `list` VALUES ('539', '0', 'Meijer', null, '2015-11-14 13:33:33', '0', '0');
-INSERT INTO `list` VALUES ('540', '539', null, 'Deoderant', '2015-11-14 13:33:38', '0', '0');
-INSERT INTO `list` VALUES ('541', '539', null, 'Deodorant', '2015-11-14 13:33:57', '1', '0');
-INSERT INTO `list` VALUES ('542', '539', null, 'Toothpaste', '2015-11-14 13:34:08', '1', '0');
-INSERT INTO `list` VALUES ('543', '539', null, 'Shower Soap', '2015-11-14 13:34:18', '1', '0');
-INSERT INTO `list` VALUES ('544', '539', null, 'Lotion', '2015-11-14 13:35:35', '1', '0');
-INSERT INTO `list` VALUES ('545', '0', 'Grocery', null, '2015-11-16 23:59:19', '0', '0');
-INSERT INTO `list` VALUES ('546', '545', null, 'Facewash', '2015-11-16 23:59:22', '0', '0');
-INSERT INTO `list` VALUES ('547', '545', null, 'Juice', '2015-11-16 23:59:54', '1', '0');
-INSERT INTO `list` VALUES ('548', '545', null, 'Eggs', '2015-11-17 00:00:00', '1', '0');
-INSERT INTO `list` VALUES ('549', '545', null, 'Chips', '2015-11-17 00:00:05', '1', '0');
-INSERT INTO `list` VALUES ('550', '545', null, 'Coffee', '2015-11-17 14:58:35', '1', '0');
-INSERT INTO `list` VALUES ('551', '545', null, 'Creamer', '2015-11-17 14:58:36', '1', '0');
-INSERT INTO `list` VALUES ('552', '545', null, 'Cake', '2015-11-17 14:58:40', '1', '0');
-INSERT INTO `list` VALUES ('553', '545', null, 'Ruler', '2015-11-17 14:58:46', '1', '0');
-INSERT INTO `list` VALUES ('554', '545', null, 'hugs', '2015-11-17 15:00:04', '0', '0');
-INSERT INTO `list` VALUES ('555', '545', null, 'Hugs', '2015-11-17 15:00:10', '1', '0');
-INSERT INTO `list` VALUES ('556', '545', null, 'Juice', '2015-11-17 15:14:12', '0', '0');
-INSERT INTO `list` VALUES ('557', '545', null, 'Face Wash', '2015-11-17 15:14:14', '1', '0');
-INSERT INTO `list` VALUES ('558', '0', 'Ryan\'s list', null, '2015-11-19 15:18:54', '0', '0');
-INSERT INTO `list` VALUES ('559', '558', null, 'i like stuff', '2015-11-19 15:18:57', '1', '0');
-INSERT INTO `list` VALUES ('560', '558', null, 'i have more stuff to do', '2015-11-19 15:19:00', '1', '0');
-INSERT INTO `list` VALUES ('561', '558', null, 'i have some things to do', '2015-11-19 15:19:03', '1', '0');
-INSERT INTO `list` VALUES ('562', '558', null, 'delte this', '2015-11-19 15:19:14', '1', '0');
-INSERT INTO `list` VALUES ('563', '558', null, 'drag this', '2015-11-19 15:19:16', '1', '0');
-INSERT INTO `list` VALUES ('564', '558', null, 'oh em gee', '2015-11-19 15:19:18', '0', '0');
-INSERT INTO `list` VALUES ('565', '0', 'Stuff', null, '2015-11-19 15:21:56', '0', '0');
-INSERT INTO `list` VALUES ('566', '565', null, 'Yeahhhh', '2015-11-19 15:22:01', '0', '0');
-INSERT INTO `list` VALUES ('567', '0', 'Testing', null, '2015-11-19 15:25:14', '0', '0');
-INSERT INTO `list` VALUES ('568', '567', null, 'Testing2', '2015-11-19 15:25:17', '0', '0');
-INSERT INTO `list` VALUES ('569', '567', null, 'testset', '2015-11-19 15:31:01', '1', '0');
-INSERT INTO `list` VALUES ('570', '0', 'Black Friday', null, '2015-11-23 20:52:24', '0', '0');
-INSERT INTO `list` VALUES ('571', '570', null, 'Pillows', '2015-11-23 20:52:34', '0', '0');
-INSERT INTO `list` VALUES ('572', '570', null, 'Pillows', '2015-11-23 21:10:04', '1', '0');
-INSERT INTO `list` VALUES ('573', '570', null, 'pbs', '2015-11-23 21:10:13', '1', '0');
-INSERT INTO `list` VALUES ('574', '570', null, 'Comfoter', '2015-11-23 21:10:20', '0', '0');
-INSERT INTO `list` VALUES ('575', '570', null, 'Timberlands', '2015-11-23 21:10:36', '1', '0');
-INSERT INTO `list` VALUES ('576', '570', null, 'Comforter', '2015-11-23 21:10:47', '0', '0');
-INSERT INTO `list` VALUES ('577', '570', null, 'Towels', '2015-11-23 21:10:53', '0', '0');
-INSERT INTO `list` VALUES ('578', '570', null, 'PBS', '2015-11-23 21:11:05', '0', '0');
-INSERT INTO `list` VALUES ('579', '570', null, 'Record Player - Best Buy - 64.99 Sony', '2015-11-23 21:17:51', '0', '0');
-INSERT INTO `list` VALUES ('580', '0', 'Grocery', null, '2015-11-28 23:03:08', '0', '0');
-INSERT INTO `list` VALUES ('581', '580', null, 'Lime Juice', '2015-11-28 23:03:11', '1', '0');
-INSERT INTO `list` VALUES ('582', '580', null, 'Eggs', '2015-11-28 23:03:15', '1', '0');
-INSERT INTO `list` VALUES ('583', '580', null, 'Hot Cheetohs', '2015-11-28 23:03:22', '1', '0');
-INSERT INTO `list` VALUES ('584', '580', null, 'Pillows', '2015-11-28 23:03:24', '1', '0');
-INSERT INTO `list` VALUES ('585', '580', null, 'Green Pepper', '2015-11-28 23:03:29', '1', '0');
-INSERT INTO `list` VALUES ('586', '580', null, 'El Pato Sauce', '2015-11-28 23:03:58', '1', '0');
-INSERT INTO `list` VALUES ('587', '580', null, 'Jalapeno', '2015-11-28 23:04:10', '1', '0');
-INSERT INTO `list` VALUES ('588', '580', null, 'Onion', '2015-11-28 23:04:12', '1', '0');
-INSERT INTO `list` VALUES ('589', '580', null, 'Munster Cheese', '2015-11-28 23:04:45', '0', '0');
-INSERT INTO `list` VALUES ('590', '580', null, 'Milk', '2015-11-28 23:05:13', '1', '0');
-INSERT INTO `list` VALUES ('591', '0', 'Meijer', null, '2015-12-06 10:18:27', '0', '0');
-INSERT INTO `list` VALUES ('592', '591', null, 'Yogurt', '2015-12-06 10:18:30', '1', '0');
-INSERT INTO `list` VALUES ('593', '591', null, 'Pancake Mix', '2015-12-06 10:18:33', '1', '0');
-INSERT INTO `list` VALUES ('594', '591', null, 'Liners', '2015-12-06 10:18:34', '1', '0');
-INSERT INTO `list` VALUES ('595', '0', 'Shit I want for my desk', null, '2015-12-08 13:40:31', '0', '0');
-INSERT INTO `list` VALUES ('596', '595', null, 'Pencil Holder', '2015-12-08 13:40:42', '0', '0');
-INSERT INTO `list` VALUES ('597', '595', null, 'A badass dragon', '2015-12-08 13:40:46', '0', '0');
-INSERT INTO `list` VALUES ('598', '595', null, 'A lamp', '2015-12-08 13:40:54', '0', '0');
-INSERT INTO `list` VALUES ('599', '595', null, 'Paper shit', '2015-12-08 13:41:03', '0', '0');
-INSERT INTO `list` VALUES ('600', '0', 'New', null, '2015-12-12 17:59:14', '0', '0');
-INSERT INTO `list` VALUES ('601', '600', null, 'Lint roller', '2015-12-12 17:59:19', '0', '0');
-INSERT INTO `list` VALUES ('602', '600', null, 'Smell cube', '2015-12-12 17:59:23', '0', '0');
-INSERT INTO `list` VALUES ('603', '600', null, 'Snacks', '2015-12-12 17:59:33', '0', '0');
-INSERT INTO `list` VALUES ('604', '600', null, 'Windshield wiper', '2015-12-12 18:04:38', '0', '0');
-INSERT INTO `list` VALUES ('605', '600', null, 'Concealer ', '2015-12-12 18:07:09', '0', '0');
-INSERT INTO `list` VALUES ('606', '0', 'The list', null, '2015-12-13 11:29:14', '0', '0');
-INSERT INTO `list` VALUES ('607', '606', null, 'Sour cream ', '2015-12-13 11:29:25', '1', '0');
-INSERT INTO `list` VALUES ('608', '606', null, 'The mix', '2015-12-13 11:29:29', '1', '0');
-INSERT INTO `list` VALUES ('609', '606', null, 'Chips', '2015-12-13 11:29:43', '1', '0');
-INSERT INTO `list` VALUES ('610', '606', null, 'Soda cans', '2015-12-13 11:30:17', '1', '0');
-INSERT INTO `list` VALUES ('611', '606', null, 'Juice', '2015-12-13 11:30:24', '1', '0');
-INSERT INTO `list` VALUES ('612', '606', null, 'Red bulls', '2015-12-13 11:31:03', '0', '0');
-INSERT INTO `list` VALUES ('613', '606', null, 'Carrots', '2015-12-13 11:31:10', '1', '0');
-INSERT INTO `list` VALUES ('614', '606', null, 'Celery', '2015-12-13 11:32:33', '1', '0');
-INSERT INTO `list` VALUES ('615', '606', null, 'Laundy', '2015-12-17 18:34:17', '1', '0');
-INSERT INTO `list` VALUES ('616', '606', null, 'Chicken', '2015-12-17 18:34:28', '1', '0');
-INSERT INTO `list` VALUES ('617', '606', null, 'Litter', '2015-12-17 18:34:33', '1', '0');
-INSERT INTO `list` VALUES ('618', '606', null, 'Toilet paper', '2015-12-17 18:34:37', '1', '0');
-INSERT INTO `list` VALUES ('619', '606', null, 'Concealer', '2015-12-17 18:34:42', '0', '0');
-INSERT INTO `list` VALUES ('620', '606', null, 'Bananas', '2015-12-17 18:34:55', '1', '0');
-INSERT INTO `list` VALUES ('621', '606', null, 'Ensure ', '2015-12-17 18:42:08', '1', '0');
-INSERT INTO `list` VALUES ('622', '606', null, 'Desert', '2015-12-17 18:43:44', '0', '0');
-INSERT INTO `list` VALUES ('623', '0', 'My list', null, '2015-12-18 09:43:08', '0', '0');
-INSERT INTO `list` VALUES ('624', '623', null, 'test', '2015-12-18 09:43:11', '1', '0');
-INSERT INTO `list` VALUES ('625', '623', null, 'test', '2015-12-18 09:43:12', '1', '0');
-INSERT INTO `list` VALUES ('626', '623', null, 'test', '2015-12-18 09:43:12', '1', '0');
-INSERT INTO `list` VALUES ('627', '623', null, 'dfg', '2015-12-18 09:43:13', '1', '0');
-INSERT INTO `list` VALUES ('628', '623', null, 'sdfsdfs', '2015-12-18 09:43:37', '1', '0');
-INSERT INTO `list` VALUES ('629', '623', null, 'df', '2015-12-18 09:43:37', '1', '0');
-INSERT INTO `list` VALUES ('630', '623', null, 'sdf', '2015-12-18 09:43:37', '1', '0');
-INSERT INTO `list` VALUES ('631', '623', null, 'df', '2015-12-18 09:43:38', '1', '0');
-INSERT INTO `list` VALUES ('632', '623', null, 'test', '2015-12-18 09:44:10', '1', '0');
-INSERT INTO `list` VALUES ('633', '623', null, 'et', '2015-12-18 09:44:10', '0', '0');
-INSERT INTO `list` VALUES ('634', '623', null, 'et', '2015-12-18 09:44:10', '0', '0');
-INSERT INTO `list` VALUES ('635', '623', null, 'et', '2015-12-18 09:44:11', '0', '0');
-INSERT INTO `list` VALUES ('636', '623', null, 't', '2015-12-18 09:44:11', '0', '0');
-INSERT INTO `list` VALUES ('637', '623', null, 't', '2015-12-18 09:44:11', '0', '0');
-INSERT INTO `list` VALUES ('638', '623', null, 'sdf', '2015-12-18 09:44:12', '0', '0');
-INSERT INTO `list` VALUES ('639', '0', 'Issamar\'s List', null, '2015-12-29 10:43:28', '0', '0');
-INSERT INTO `list` VALUES ('640', '639', null, 'Red Bull', '2015-12-29 10:43:31', '1', '0');
-INSERT INTO `list` VALUES ('641', '639', null, 'Ham', '2015-12-29 10:43:34', '1', '0');
-INSERT INTO `list` VALUES ('642', '639', null, 'Bread', '2015-12-29 10:43:39', '1', '0');
-INSERT INTO `list` VALUES ('643', '639', null, 'Tomato Sauce Can', '2015-12-29 10:43:48', '1', '0');
-INSERT INTO `list` VALUES ('644', '639', null, 'Canned Corn', '2015-12-29 10:44:13', '1', '0');
-INSERT INTO `list` VALUES ('645', '639', null, 'Tomato', '2015-12-29 10:45:42', '1', '0');
-INSERT INTO `list` VALUES ('646', '639', null, 'Onion', '2015-12-29 10:45:45', '1', '0');
-INSERT INTO `list` VALUES ('647', '639', null, 'Cilantro', '2015-12-29 10:45:53', '0', '0');
-INSERT INTO `list` VALUES ('648', '639', null, 'Salami', '2015-12-29 10:45:56', '1', '0');
-INSERT INTO `list` VALUES ('649', '639', null, 'Lettuce', '2015-12-29 10:46:02', '1', '0');
-INSERT INTO `list` VALUES ('650', '639', null, 'Chips', '2015-12-29 10:46:12', '1', '0');
-INSERT INTO `list` VALUES ('651', '639', null, 'Toothpaste', '2015-12-29 10:46:35', '1', '0');
-INSERT INTO `list` VALUES ('652', '639', null, 'Cilantro', '2015-12-29 10:47:55', '1', '0');
-INSERT INTO `list` VALUES ('653', '639', null, 'Tortillas', '2015-12-29 10:47:56', '1', '0');
-INSERT INTO `list` VALUES ('654', '639', null, 'Strawberries', '2015-12-29 10:48:44', '1', '0');
-INSERT INTO `list` VALUES ('655', '639', null, 'Bananas', '2015-12-29 10:49:13', '1', '0');
-INSERT INTO `list` VALUES ('656', '639', null, 'Breakfast Drinks', '2015-12-29 10:49:16', '0', '0');
-INSERT INTO `list` VALUES ('657', '639', null, 'Juice', '2015-12-29 10:50:00', '1', '0');
-INSERT INTO `list` VALUES ('658', '639', null, 'Butter', '2015-12-29 10:52:19', '1', '0');
-INSERT INTO `list` VALUES ('659', '639', null, 'Crackers', '2015-12-29 10:52:56', '1', '0');
-INSERT INTO `list` VALUES ('660', '639', null, 'Dessert', '2015-12-29 10:54:21', '1', '0');
-INSERT INTO `list` VALUES ('661', '639', null, 'Love meeeee', '2015-12-29 10:56:33', '0', '0');
-INSERT INTO `list` VALUES ('662', '639', null, 'Ground beef', '2015-12-29 11:52:15', '1', '0');
-INSERT INTO `list` VALUES ('663', '0', 'Meijer', null, '2016-01-05 19:46:03', '0', '0');
-INSERT INTO `list` VALUES ('664', '663', null, 'Que-Tips', '2016-01-05 19:46:11', '1', '0');
-INSERT INTO `list` VALUES ('665', '663', null, 'Trash Bags', '2016-01-05 19:46:14', '1', '0');
-INSERT INTO `list` VALUES ('666', '663', null, 'Juice', '2016-01-05 19:46:19', '1', '0');
-INSERT INTO `list` VALUES ('667', '663', null, 'Bread', '2016-01-05 19:46:20', '0', '0');
-INSERT INTO `list` VALUES ('668', '663', null, 'Oil', '2016-01-06 20:48:38', '0', '0');
-INSERT INTO `list` VALUES ('669', '663', null, 'Ham', '2016-01-06 20:48:59', '1', '0');
-INSERT INTO `list` VALUES ('670', '663', null, 'Chips', '2016-01-06 20:49:03', '1', '0');
-INSERT INTO `list` VALUES ('671', '663', null, 'Bananas', '2016-01-06 20:49:12', '1', '0');
-INSERT INTO `list` VALUES ('672', '663', null, 'Coffee', '2016-01-07 13:38:27', '1', '0');
-INSERT INTO `list` VALUES ('673', '663', null, 'Coffee Filters', '2016-01-07 13:38:29', '1', '0');
-INSERT INTO `list` VALUES ('674', '663', null, 'Coffee Creamer', '2016-01-07 13:38:32', '1', '0');
-INSERT INTO `list` VALUES ('675', '663', null, 'Kevin\'s Shampoo ;)', '2016-01-07 13:38:40', '1', '0');
-INSERT INTO `list` VALUES ('676', '663', null, 'Frozen Fruit', '2016-01-07 13:38:47', '1', '0');
-INSERT INTO `list` VALUES ('677', '663', null, 'Dish Sponges', '2016-01-09 12:02:33', '1', '0');
-INSERT INTO `list` VALUES ('678', '663', null, 'Bleach Wipes', '2016-01-09 12:02:40', '1', '0');
-INSERT INTO `list` VALUES ('679', '663', null, 'Bleach Spray', '2016-01-09 12:02:43', '1', '0');
-INSERT INTO `list` VALUES ('680', '663', null, 'Nail Clippers', '2016-01-16 21:12:37', '1', '0');
-INSERT INTO `list` VALUES ('681', '663', null, 'Blush', '2016-01-23 11:03:02', '0', '0');
-INSERT INTO `list` VALUES ('682', '663', null, 'Juice', '2016-01-23 11:03:02', '1', '0');
-INSERT INTO `list` VALUES ('683', '663', null, 'External CD Drive', '2016-01-23 11:03:08', '1', '0');
-INSERT INTO `list` VALUES ('684', '663', null, 'Frozen Fruit', '2016-01-23 11:03:21', '1', '0');
-INSERT INTO `list` VALUES ('685', '663', null, 'Bananas', '2016-01-23 11:03:23', '1', '0');
-INSERT INTO `list` VALUES ('686', '663', null, 'Breakfast Drinks x2', '2016-01-23 11:03:45', '1', '0');
-INSERT INTO `list` VALUES ('687', '0', 'Books I\'ve Read but don\'t Own', null, '2016-01-23 19:24:15', '0', '1');
-INSERT INTO `list` VALUES ('688', '687', null, 'Brave New World', '2016-01-23 19:24:22', '0', '0');
-INSERT INTO `list` VALUES ('689', '687', null, 'Fahrenheit 451', '2016-01-23 19:24:42', '1', '0');
-INSERT INTO `list` VALUES ('690', '687', null, 'Cats Cradle', '2016-01-23 19:24:47', '0', '0');
-INSERT INTO `list` VALUES ('691', '687', null, 'Slaughterhouse Five', '2016-01-23 19:25:06', '0', '0');
-INSERT INTO `list` VALUES ('692', '687', null, 'Hitchhikers Guide to the Galaxy', '2016-01-23 19:25:33', '0', '0');
-INSERT INTO `list` VALUES ('693', '687', null, '2001: A Space Odyssey', '2016-01-23 19:25:56', '0', '0');
-INSERT INTO `list` VALUES ('694', '687', null, 'Catch-22', '2016-01-23 19:26:06', '0', '0');
-INSERT INTO `list` VALUES ('695', '687', null, ' Night - Wiesel, Elie ', '2016-01-23 19:26:22', '0', '1');
-INSERT INTO `list` VALUES ('696', '687', null, 'Slaughterhouse-Five - Vonnegut, Kurt ', '2016-01-23 19:26:39', '0', '1');
-INSERT INTO `list` VALUES ('697', '687', null, 'Brave New World - Huxley, Aldous ', '2016-01-23 19:26:55', '1', '1');
-INSERT INTO `list` VALUES ('698', '687', null, ' Animal Farm - Orwell, George ', '2016-01-23 19:27:09', '1', '1');
-INSERT INTO `list` VALUES ('699', '687', null, 'Cat\'s Cradle - Vonnegut, Kurt ', '2016-01-23 19:27:23', '0', '1');
-INSERT INTO `list` VALUES ('700', '687', null, ' The Hitchhiker\'s Guide to the Galaxy - Adams, Douglas ', '2016-01-23 19:27:52', '0', '1');
-INSERT INTO `list` VALUES ('701', '687', null, ' 2001: A Space Odyssey - Clarke, Arthur C. ', '2016-01-23 19:28:05', '0', '1');
-INSERT INTO `list` VALUES ('702', '687', null, ' Catch-22 - Heller, Joseph ', '2016-01-23 19:28:18', '0', '1');
-INSERT INTO `list` VALUES ('703', '687', null, 'Fahrenheit 451 - Bradbury, Ray ', '2016-01-23 19:28:29', '1', '1');
-INSERT INTO `list` VALUES ('704', '687', null, ' Lord of the Flies - William Golding', '2016-01-25 18:18:53', '0', '1');
-INSERT INTO `list` VALUES ('705', '0', 'Meijer', null, '2016-02-02 19:16:34', '0', '0');
-INSERT INTO `list` VALUES ('706', '705', null, 'Peanut Butter', '2016-02-02 19:16:40', '1', '0');
-INSERT INTO `list` VALUES ('707', '705', null, 'Juice', '2016-02-02 19:16:41', '1', '0');
-INSERT INTO `list` VALUES ('708', '705', null, 'Ensure', '2016-02-02 19:16:42', '1', '0');
-INSERT INTO `list` VALUES ('709', '705', null, 'Bread', '2016-02-02 19:16:43', '1', '0');
-INSERT INTO `list` VALUES ('710', '705', null, 'Chips', '2016-02-02 19:16:57', '1', '0');
-INSERT INTO `list` VALUES ('711', '705', null, 'Cheese', '2016-02-02 19:16:58', '1', '0');
-INSERT INTO `list` VALUES ('712', '705', null, 'Milk', '2016-02-02 19:17:00', '1', '0');
-INSERT INTO `list` VALUES ('713', '705', null, 'Eggs', '2016-02-02 19:17:40', '1', '0');
-INSERT INTO `list` VALUES ('714', '705', null, 'Chips Ahoy', '2016-02-02 19:19:07', '1', '0');
-INSERT INTO `list` VALUES ('715', '705', null, 'Bagels', '2016-02-02 19:19:39', '1', '0');
-INSERT INTO `list` VALUES ('716', '705', null, 'Creme Fresche', '2016-02-02 19:19:45', '1', '0');
-INSERT INTO `list` VALUES ('717', '0', 'Best Buy', null, '2016-02-02 21:02:10', '0', '0');
-INSERT INTO `list` VALUES ('718', '717', null, 'Magenta', '2016-02-02 21:02:21', '0', '0');
-INSERT INTO `list` VALUES ('719', '717', null, 'Cyan', '2016-02-02 21:02:22', '0', '0');
-INSERT INTO `list` VALUES ('720', '717', null, 'Yellow', '2016-02-02 21:02:24', '0', '0');
-INSERT INTO `list` VALUES ('721', '717', null, 'Pg Black', '2016-02-02 21:02:31', '0', '0');
-INSERT INTO `list` VALUES ('722', '717', null, 'Black / Grey', '2016-02-02 21:02:46', '0', '0');
-INSERT INTO `list` VALUES ('723', '0', 'New List', null, '2016-02-22 13:19:16', '0', '0');
-INSERT INTO `list` VALUES ('724', '723', null, 'Face Lotion', '2016-02-22 13:19:19', '1', '0');
-INSERT INTO `list` VALUES ('725', '723', null, 'Zip lock bags', '2016-02-22 13:19:21', '1', '0');
-INSERT INTO `list` VALUES ('726', '723', null, 'Tin foil', '2016-02-22 13:19:23', '1', '0');
-INSERT INTO `list` VALUES ('727', '723', null, 'Breakfast Drinks', '2016-02-22 13:19:26', '1', '0');
-INSERT INTO `list` VALUES ('728', '723', null, 'Lunch meat', '2016-02-22 13:19:28', '1', '0');
-INSERT INTO `list` VALUES ('729', '723', null, 'Cat Litter', '2016-02-22 14:51:09', '1', '0');
-INSERT INTO `list` VALUES ('730', '0', 'Clothes', null, '2016-03-12 16:22:40', '0', '0');
-INSERT INTO `list` VALUES ('731', '730', null, 'Socks', '2016-03-12 16:22:51', '0', '0');
-INSERT INTO `list` VALUES ('732', '730', null, 'Undershirts', '2016-03-12 16:23:07', '0', '0');
-INSERT INTO `list` VALUES ('733', '730', null, 'Undershirts', '2016-03-12 16:23:07', '0', '0');
-INSERT INTO `list` VALUES ('734', '730', null, 'Shirt', '2016-03-12 16:23:32', '0', '0');
-INSERT INTO `list` VALUES ('735', '730', null, 'Pants', '2016-03-12 16:23:38', '0', '0');
-INSERT INTO `list` VALUES ('736', '0', 'Meijer', null, '2016-03-22 22:37:06', '0', '0');
-INSERT INTO `list` VALUES ('737', '736', null, 'Cotton Balls', '2016-03-22 22:37:29', '1', '0');
-INSERT INTO `list` VALUES ('738', '736', null, 'Tacos', '2016-03-26 23:02:32', '0', '0');
-INSERT INTO `list` VALUES ('739', '736', null, 'Nachos', '2016-03-26 23:02:37', '0', '0');
-INSERT INTO `list` VALUES ('740', '736', null, 'Stuff', '2016-03-26 23:02:42', '1', '0');
-INSERT INTO `list` VALUES ('741', '736', null, 'More dtuff', '2016-03-26 23:02:45', '1', '0');
-INSERT INTO `list` VALUES ('742', '0', 'Create a list', null, '2016-03-26 23:03:02', '0', '0');
-INSERT INTO `list` VALUES ('743', '736', null, 'Milk', '2016-03-28 18:44:18', '1', '0');
-INSERT INTO `list` VALUES ('744', '736', null, 'Eggs', '2016-03-28 18:44:19', '1', '0');
-INSERT INTO `list` VALUES ('745', '736', null, 'Ham', '2016-03-28 18:44:20', '1', '0');
-INSERT INTO `list` VALUES ('746', '736', null, 'Juice', '2016-03-28 18:44:22', '1', '0');
-INSERT INTO `list` VALUES ('747', '736', null, 'Tomato', '2016-03-28 18:44:25', '0', '0');
-INSERT INTO `list` VALUES ('748', '736', null, 'Chips', '2016-03-28 18:44:32', '1', '0');
-INSERT INTO `list` VALUES ('749', '736', null, 'Bananas', '2016-03-28 18:44:37', '1', '0');
-INSERT INTO `list` VALUES ('750', '736', null, 'Cheese', '2016-03-28 18:44:56', '1', '0');
-INSERT INTO `list` VALUES ('751', '736', null, 'Shoe Grip', '2016-03-29 23:00:58', '1', '0');
-INSERT INTO `list` VALUES ('752', '736', null, 'Shoe sole thing', '2016-03-29 23:01:07', '1', '0');
-INSERT INTO `list` VALUES ('753', '736', null, 'Bobby pin', '2016-03-29 23:01:15', '1', '0');
-INSERT INTO `list` VALUES ('754', '736', null, 'butter', '2016-03-30 20:42:59', '0', '0');
-INSERT INTO `list` VALUES ('755', '736', null, 'Juice', '2016-03-30 20:43:01', '0', '0');
-INSERT INTO `list` VALUES ('756', '736', null, 'beer', '2016-03-30 20:43:03', '1', '0');
-INSERT INTO `list` VALUES ('757', '736', null, 'eye juice', '2016-03-30 21:48:48', '1', '0');
-INSERT INTO `list` VALUES ('758', '736', null, 'envelopes', '2016-03-31 21:01:40', '0', '0');
-INSERT INTO `list` VALUES ('759', '0', 'Teat', null, '2016-04-05 19:58:07', '0', '0');
-INSERT INTO `list` VALUES ('760', '759', null, 'Gg', '2016-04-05 19:58:17', '0', '0');
-INSERT INTO `list` VALUES ('761', '759', null, 'Ty', '2016-04-05 19:58:18', '0', '0');
-INSERT INTO `list` VALUES ('762', '0', 'Issa movies', null, '2016-04-13 23:52:57', '0', '0');
-INSERT INTO `list` VALUES ('763', '762', null, 'Secret life of ', '2016-04-13 23:53:03', '1', '0');
-INSERT INTO `list` VALUES ('764', '762', null, 'Jungle book', '2016-04-13 23:53:06', '1', '0');
-INSERT INTO `list` VALUES ('765', '762', null, 'Civil war', '2016-04-13 23:53:09', '1', '0');
-INSERT INTO `list` VALUES ('766', '0', 'Portugal', null, '2016-04-20 21:40:18', '0', '0');
-INSERT INTO `list` VALUES ('767', '766', null, '3 Prong Euro Adapters', '2016-04-20 21:40:23', '0', '0');
-INSERT INTO `list` VALUES ('768', '0', 'cvdsv', null, '2016-04-22 13:47:17', '0', '0');
-INSERT INTO `list` VALUES ('769', '768', null, 'test', '2016-04-22 13:47:39', '1', '0');
-INSERT INTO `list` VALUES ('770', '0', 'Satuday', null, '2016-04-22 18:38:55', '0', '0');
-INSERT INTO `list` VALUES ('771', '770', null, 'Eye doctor', '2016-04-22 18:39:07', '0', '0');
-INSERT INTO `list` VALUES ('772', '770', null, 'Birthday shopping', '2016-04-22 18:39:12', '0', '0');
-INSERT INTO `list` VALUES ('773', '770', null, 'Orb walmart', '2016-04-22 18:39:16', '0', '0');
-INSERT INTO `list` VALUES ('774', '770', null, 'Allergy Medicine', '2016-04-22 22:27:18', '1', '0');
-INSERT INTO `list` VALUES ('775', '770', null, 'vitamin d', '2016-04-23 22:45:20', '0', '0');
-INSERT INTO `list` VALUES ('776', '770', null, 'claritin d', '2016-04-23 22:45:22', '0', '0');
-INSERT INTO `list` VALUES ('777', '0', 'Grocery', null, '2016-04-28 17:47:45', '0', '0');
-INSERT INTO `list` VALUES ('778', '777', null, 'The D', '2016-04-28 17:47:52', '1', '0');
-INSERT INTO `list` VALUES ('779', '777', null, 'Vitaminwater D', '2016-04-28 17:47:57', '1', '0');
-INSERT INTO `list` VALUES ('780', '777', null, 'Milk', '2016-04-28 17:48:08', '1', '0');
-INSERT INTO `list` VALUES ('781', '777', null, 'Bread', '2016-04-28 17:48:18', '1', '0');
-INSERT INTO `list` VALUES ('782', '777', null, 'Juice', '2016-04-28 17:48:23', '1', '0');
-INSERT INTO `list` VALUES ('783', '777', null, 'Salami', '2016-04-28 17:48:28', '1', '0');
-INSERT INTO `list` VALUES ('784', '777', null, 'Pasta deli', '2016-04-28 17:48:34', '1', '0');
-INSERT INTO `list` VALUES ('785', '777', null, 'Tampons', '2016-04-28 17:49:28', '1', '0');
-INSERT INTO `list` VALUES ('786', '777', null, 'Chicken buisquit', '2016-04-28 17:50:50', '1', '0');
-INSERT INTO `list` VALUES ('787', '777', null, 'Cheese', '2016-04-28 17:50:56', '0', '0');
-INSERT INTO `list` VALUES ('788', '0', 'Meijer', null, '2016-05-09 22:24:01', '0', '0');
-INSERT INTO `list` VALUES ('789', '788', null, 'Milk', '2016-05-09 22:24:03', '1', '0');
-INSERT INTO `list` VALUES ('790', '788', null, 'Contact Solution', '2016-05-09 22:24:06', '1', '0');
-INSERT INTO `list` VALUES ('791', '788', null, 'Mini Tooth Paste', '2016-05-09 22:24:11', '1', '0');
-INSERT INTO `list` VALUES ('792', '788', null, 'Blush', '2016-05-09 22:24:20', '1', '0');
-INSERT INTO `list` VALUES ('793', '788', null, 'Face Powder', '2016-05-09 22:24:28', '1', '0');
-INSERT INTO `list` VALUES ('794', '788', null, 'Mascara', '2016-05-09 22:24:29', '1', '0');
-INSERT INTO `list` VALUES ('795', '788', null, 'Eye Liner', '2016-05-09 22:24:32', '1', '0');
-INSERT INTO `list` VALUES ('796', '788', null, 'Haircut', '2016-05-09 22:24:36', '1', '0');
-INSERT INTO `list` VALUES ('797', '788', null, 'Feet Powder', '2016-05-09 22:24:40', '1', '0');
-INSERT INTO `list` VALUES ('798', '788', null, 'Small Bag', '2016-05-09 22:24:54', '1', '0');
-INSERT INTO `list` VALUES ('799', '788', null, 'Shower Cap', '2016-05-09 22:24:57', '1', '0');
-INSERT INTO `list` VALUES ('800', '788', null, 'Underwear', '2016-05-09 22:25:07', '1', '0');
-INSERT INTO `list` VALUES ('801', '788', null, '3 Prong Euro Adapter', '2016-05-09 22:32:40', '1', '0');
-INSERT INTO `list` VALUES ('802', '788', null, 'Scrubby Bubby', '2016-05-09 22:45:08', '1', '0');
-INSERT INTO `list` VALUES ('803', '788', null, 'Razor', '2016-05-09 22:45:09', '1', '0');
-INSERT INTO `list` VALUES ('804', '788', null, 'Journal', '2016-05-09 22:45:11', '1', '0');
-INSERT INTO `list` VALUES ('805', '788', null, 'Copy of passport', '2016-05-10 20:06:19', '1', '0');
-INSERT INTO `list` VALUES ('806', '0', 'Need to Pack', null, '2016-05-13 23:34:37', '0', '0');
-INSERT INTO `list` VALUES ('807', '806', null, 'Lunch', '2016-05-13 23:34:47', '1', '0');
-INSERT INTO `list` VALUES ('808', '0', 'Meijer', null, '2016-06-04 11:41:24', '0', '0');
-INSERT INTO `list` VALUES ('809', '808', null, 'Que-Tips', '2016-06-04 11:41:28', '1', '0');
-INSERT INTO `list` VALUES ('810', '808', null, 'Dry Shampoo', '2016-06-04 11:41:30', '1', '0');
-INSERT INTO `list` VALUES ('811', '808', null, 'Bar Soap', '2016-06-04 11:41:33', '1', '0');
-INSERT INTO `list` VALUES ('812', '808', null, 'Toothpaste', '2016-06-04 11:41:38', '1', '0');
-INSERT INTO `list` VALUES ('813', '0', 'allergy medicine', null, '2016-06-04 11:51:38', '0', '0');
-INSERT INTO `list` VALUES ('814', '808', null, 'Allergy Medicine', '2016-06-04 11:51:49', '1', '0');
-INSERT INTO `list` VALUES ('815', '808', null, 'soap refill non-foam', '2016-06-30 18:33:09', '1', '0');
-INSERT INTO `list` VALUES ('816', '808', null, 'toilet paper', '2016-06-30 18:33:15', '1', '0');
-INSERT INTO `list` VALUES ('817', '808', null, 'milk', '2016-06-30 18:33:16', '1', '0');
-INSERT INTO `list` VALUES ('818', '808', null, 'chips', '2016-06-30 18:33:18', '1', '0');
-INSERT INTO `list` VALUES ('819', '808', null, 'bread', '2016-06-30 18:33:20', '1', '0');
-INSERT INTO `list` VALUES ('820', '808', null, 'juice', '2016-06-30 18:33:22', '1', '0');
-INSERT INTO `list` VALUES ('821', '808', null, 'ensures', '2016-06-30 18:34:06', '1', '0');
-INSERT INTO `list` VALUES ('822', '808', null, 'bananas', '2016-06-30 18:34:16', '1', '0');
-INSERT INTO `list` VALUES ('823', '808', null, 'grapes', '2016-06-30 18:34:17', '1', '0');
-INSERT INTO `list` VALUES ('824', '808', null, 'cereal', '2016-06-30 18:34:44', '1', '0');
-INSERT INTO `list` VALUES ('825', '808', null, 'the d', '2016-06-30 18:36:58', '1', '0');
-INSERT INTO `list` VALUES ('826', '808', null, 'Toothe Paste', '2016-07-15 20:04:31', '1', '0');
-INSERT INTO `list` VALUES ('827', '808', null, 'Ensure', '2016-07-15 20:04:34', '1', '0');
-INSERT INTO `list` VALUES ('828', '808', null, 'Frozen Dinners', '2016-07-15 20:04:42', '0', '0');
-INSERT INTO `list` VALUES ('829', '808', null, 'Bananas', '2016-07-15 20:05:33', '0', '0');
-INSERT INTO `list` VALUES ('830', '808', null, 'Granola Price', '2016-07-15 20:05:44', '0', '0');
-INSERT INTO `list` VALUES ('831', '808', null, 'Measuring Cup', '2016-07-15 20:06:25', '1', '0');
-INSERT INTO `list` VALUES ('832', '808', null, 'Measuring Cup', '2016-07-15 20:06:30', '1', '0');
-INSERT INTO `list` VALUES ('833', '808', null, 'Pitcher ', '2016-07-15 20:06:30', '0', '0');
-INSERT INTO `list` VALUES ('834', '808', null, 'Cat removal', '2016-07-16 15:04:41', '1', '0');
-INSERT INTO `list` VALUES ('835', '808', null, 'Frames', '2016-07-16 15:04:46', '1', '0');
-INSERT INTO `list` VALUES ('836', '808', null, 'Wallet', '2016-07-16 15:05:03', '1', '0');
-INSERT INTO `list` VALUES ('837', '808', null, 'Nail Polish Remover', '2016-07-25 19:20:12', '0', '0');
-INSERT INTO `list` VALUES ('838', '808', null, 'Ensures', '2016-07-25 19:20:14', '0', '0');
-INSERT INTO `list` VALUES ('839', '0', 'Issamar\'s List', null, '2016-07-30 09:41:09', '0', '0');
-INSERT INTO `list` VALUES ('840', '839', null, 'Hair Dye', '2016-07-30 09:41:14', '1', '0');
-INSERT INTO `list` VALUES ('841', '839', null, 'Mats', '2016-07-30 09:41:16', '0', '0');
-INSERT INTO `list` VALUES ('842', '0', 'asdf', null, '2016-08-08 11:20:24', '0', '0');
-INSERT INTO `list` VALUES ('843', '842', null, 'asdf', '2016-08-08 11:20:31', '0', '0');
-INSERT INTO `list` VALUES ('844', '0', 'asdf', null, '2016-08-08 11:21:27', '0', '0');
-INSERT INTO `list` VALUES ('845', '844', null, 'asdf', '2016-08-08 11:21:30', '1', '0');
-INSERT INTO `list` VALUES ('846', '0', 'asdf', null, '2016-08-08 11:22:02', '0', '0');
-INSERT INTO `list` VALUES ('847', '846', null, 'asdf', '2016-08-08 11:22:05', '0', '0');
-INSERT INTO `list` VALUES ('848', '846', null, 'asdf', '2016-08-08 11:22:07', '1', '0');
-INSERT INTO `list` VALUES ('849', '846', null, 'asdf', '2016-08-08 11:22:07', '1', '0');
-INSERT INTO `list` VALUES ('850', '846', null, 'asdf', '2016-08-08 11:22:08', '1', '0');
-INSERT INTO `list` VALUES ('851', '846', null, 'df', '2016-08-08 11:22:09', '0', '0');
-INSERT INTO `list` VALUES ('852', '0', 'Things for the house', null, '2016-08-13 20:37:39', '0', '1');
-INSERT INTO `list` VALUES ('853', '852', null, 'Ironing Board', '2016-08-13 20:37:42', '0', '1');
-INSERT INTO `list` VALUES ('854', '852', null, 'Restroom Mats', '2016-08-13 20:38:08', '0', '1');
-INSERT INTO `list` VALUES ('855', '852', null, 'Kevin\'s Desk', '2016-08-13 20:38:13', '0', '1');
-INSERT INTO `list` VALUES ('856', '852', null, 'Something for Issa\'s family to sleep on', '2016-08-13 20:39:02', '0', '1');
-INSERT INTO `list` VALUES ('857', '852', null, 'Toys for Eddy', '2016-08-13 20:39:55', '0', '1');
-INSERT INTO `list` VALUES ('858', '852', null, 'Dry Shampoo', '2016-08-16 20:57:50', '0', '1');
-INSERT INTO `list` VALUES ('859', '852', null, 'Mouth Wash', '2016-08-16 20:57:51', '0', '1');
-INSERT INTO `list` VALUES ('860', '0', 'Grocery', null, '2016-09-17 11:38:35', '0', '1');
-INSERT INTO `list` VALUES ('861', '860', null, 'Mayo', '2016-09-17 11:38:46', '1', '1');
-INSERT INTO `list` VALUES ('862', '860', null, 'Tuna', '2016-09-17 11:38:57', '1', '1');
-INSERT INTO `list` VALUES ('863', '860', null, 'Onion ', '2016-09-17 11:40:18', '0', '0');
-INSERT INTO `list` VALUES ('864', '860', null, 'Bean sprouts', '2016-09-17 11:40:28', '0', '1');
-INSERT INTO `list` VALUES ('865', '860', null, 'Bell pepper red', '2016-09-17 11:40:33', '0', '1');
-INSERT INTO `list` VALUES ('866', '860', null, 'Chicken breast', '2016-09-17 11:40:37', '0', '1');
-INSERT INTO `list` VALUES ('867', '860', null, 'Scallion', '2016-09-17 11:41:30', '0', '1');
-INSERT INTO `list` VALUES ('868', '860', null, 'Ground beef', '2016-09-17 11:41:57', '0', '1');
-INSERT INTO `list` VALUES ('869', '860', null, 'Cilantro', '2016-09-17 11:42:09', '0', '1');
-INSERT INTO `list` VALUES ('870', '860', null, 'Parmesan, Parsley, Butter, Pasta', '2016-09-17 11:43:13', '1', '1');
-INSERT INTO `list` VALUES ('871', '860', null, 'Crusted Bread', '2016-09-17 11:43:49', '0', '1');
-INSERT INTO `list` VALUES ('872', '860', null, 'Chips', '2016-09-17 11:44:17', '1', '1');
-INSERT INTO `list` VALUES ('873', '860', null, 'Grapes', '2016-09-17 11:44:24', '0', '1');
-INSERT INTO `list` VALUES ('874', '860', null, 'Jello and Pudding', '2016-09-17 11:44:43', '1', '1');
-INSERT INTO `list` VALUES ('875', '860', null, 'Sponges', '2016-09-17 11:49:11', '1', '1');
-INSERT INTO `list` VALUES ('876', '860', null, 'Soap', '2016-09-17 23:20:41', '1', '1');
-INSERT INTO `list` VALUES ('877', '860', null, 'Paper Plates', '2016-09-17 23:21:06', '1', '1');
+
+-- ----------------------------
+-- Table structure for `lists`
+-- ----------------------------
+DROP TABLE IF EXISTS `lists`;
+CREATE TABLE `lists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `list_name` varchar(64) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of lists
+-- ----------------------------
+INSERT INTO `lists` VALUES ('2', 'Kevins List', '2016-09-21 04:42:56', '2016-09-21 04:42:56');
+
+-- ----------------------------
+-- Table structure for `posts`
+-- ----------------------------
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of posts
+-- ----------------------------
+INSERT INTO `posts` VALUES ('1', 'Test Blog Post', 'Testing Lorem', '2016-08-14 17:14:01', null);
