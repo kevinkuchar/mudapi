@@ -2,7 +2,7 @@
 
 namespace App\Data;
 
-use App\Models\ToDoList;
+use App\Models\ListItem;
 
 use App\Data\RepositoryInterface;
 use App\Data\Repository;
@@ -15,10 +15,6 @@ class ListRepository extends Repository {
      */
     function model()
     {
-        return 'App\Models\ToDoList';
-    }
-
-    function findById($list_id) {
-      return $this->model->with('items')->get()->find($list_id);
+        return 'App\Models\ListItem';
     }
 }

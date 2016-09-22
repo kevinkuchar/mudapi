@@ -18,18 +18,23 @@ $container['logger'] = function($c) {
     return $logger;
 };
 
-//services
-$container['PostService'] = function ($c) {
-    return new App\Services\PostService();
+/**
+ * Create an instance of repositories and store them in DI Container 
+ * for use in dependency injection
+ */
+$container['ListRepository'] = function ($c) {
+    return new App\Data\ListRepository();
 };
 
-// controllers
-$container['PostController'] = function ($c) {
-    $post_service = $c->get('PostService');
-    return new App\Controllers\PostController($post_service);
+$container['ListItemRepository'] = function ($c) {
+    return new App\Data\ListItemRepository();
 };
 
+/**
+ * Create an instance of controllers and inject their dependencies
+ * from the DI Container;
+ */
 $container['ListController'] = function ($c) {
-    $repository = new App\Data\ListRepository( new App\Models\ToDoList() );
+    $repository = $c->get('ListRepository');
     return new App\Controllers\ListController($repository);
 };
