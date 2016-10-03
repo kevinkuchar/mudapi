@@ -5,8 +5,6 @@ namespace App\Data;
 interface RepositoryInterface {
  
     public function all($columns = array('*'));
-
-    public function paginate($perPage = 15, $columns = array('*'));
  
     public function create(array $data);
  

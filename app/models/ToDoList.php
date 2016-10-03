@@ -19,8 +19,9 @@ class ToDoList extends Model
     protected $fillable = ['list_name'];
 
     /**
-    * ListItem relationship fucntion
-    */
+     * Relationship
+     * @return {ListItem} ListItems related to the list. 
+     */
     public function items()
     {
         return $this->hasMany('App\Models\ListItem', 'list_id');

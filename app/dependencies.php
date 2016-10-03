@@ -38,3 +38,8 @@ $container['ListController'] = function ($c) {
     $repository = $c->get('ListRepository');
     return new App\Controllers\ListController($repository);
 };
+
+$container['ListItemController'] = function ($c) {
+    $repository = $c->get('ListItemRepository');
+    return new App\Controllers\ListController($repository);
+};

@@ -14,6 +14,12 @@ $app->group('/api/list', function () {
     $this->delete('/{id}', 'ListController:deleteList');
 });
 
+$app->group('/api/list/item', function() {
+    $this->post('', 'ListController:addItem');
+    $this->put('/{id}', 'ListController:completeItem');
+    $this->delete('/{id}', 'ListController:deleteItem');
+});
+
 /**
  * Posts API
  */

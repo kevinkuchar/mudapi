@@ -11,22 +11,15 @@ abstract class Repository implements RepositoryInterface {
     protected $model;
 
     public function __construct() {
-        $this->makeModel();
+        $model_class = $this->model();        
+        $this->model = new $model_class();
     }
  
     /**
      * Specify Model class name
-     * @return mixed
+     * @return String - Name of Model Class to instantiate
      */
     abstract function model();
- 
-    /**
-     * @return Model
-     */
-    public function makeModel() {
-        $model_class = $this->model();        
-        return $this->model = new $model_class();
-    }
     
     /**
      * @param array $columns
@@ -35,16 +28,7 @@ abstract class Repository implements RepositoryInterface {
     public function all($columns = array('*')) {
         return $this->model->get($columns);
     }
- 
-    /**
-     * @param int $perPage
-     * @param array $columns
-     * @return mixed
-     */
-    public function paginate($perPage = 15, $columns = array('*')) {
-        return $this->model->paginate($perPage, $columns);
-    }
- 
+  
     /**
      * @param array $data
      * @return mixed
