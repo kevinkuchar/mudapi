@@ -20,5 +20,5 @@ class ListItem extends Model
     {
         return $this->belongsTo('App\Models\ToDoList', 'list_id');
     }
-    
+
 }
