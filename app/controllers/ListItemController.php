@@ -6,33 +6,62 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use App\Models\ListItem;
+use App\Data\ListRepository;
 
 class ListItemController
 {
-    public function __construct() { }
-    
+    protected $list_item_repository;
+
+    public function __construct($list_item_repository) {
+        $this->list_item_repository = $list_item_repository;
+    }
+
     /**
-     * Adds a list item to a list current list via POST request.
-     * POST params are listed below.
-     * @param {int} list_id 
-     * @param {string} item_name
-     * @return {ToDoList}
+     * Route: /api/list/item
+     * Add an item to an existing list.
+     * @method POST
+     * @param list_id
+     * @param item_name
      */
-    public function addItemToList(Request $request, Response $response, $args) {
+    public function addItem(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
-        $list = $this->list_repository->create([
-            'list_name' => $data['list_name'],
+
+        $list_item = $this->list_item_repository->create([
+            'list_id' => $data['list_id'],
+            'item_name' => $data['item_name']
         ]);
-        
-        return $response->withJson($list, 200);
+
+        return $response->withJson($list_item, 200);
     }
 
+    /**
+     * Route: /api/list/item/complete{id}
+     * Pass list_items id to route to update 'is_complete = 1'
+     * @method PUT
+     */
     public function completeItem(Request $request, Response $response, $args) {
-
+        $list_item_id = (int)$args['id'];
+        $this->list_item_repository->markComplete($list_item_id);
     }
 
-    public function deleteItem(Request $request, Response $response, $args) {
+    /**
+     * Route: /api/list/item/incomplete/{id}
+     * Pass list_items id to route to update 'is_complete = 0'
+     * @method PUT
+     */
+    public function incompleteItem(Request $request, Response $response, $args) {
+        $list_item_id = (int)$args['id'];
+        $this->list_item_repository->markIncomplete($list_item_id);
+    }
 
+    /**
+     * Route: /api/list/item/{id}
+     * Soft delete list_item by id
+     * @method DELETE
+     */
+    public function deleteItem(Request $request, Response $response, $args) {
+        $list_item_id = (int)$args['id'];
+        $this->list_item_repository->delete($list_item_id);
     }
 
 

@@ -6,9 +6,9 @@ use App\Models\ToDoList;
 
 use App\Data\RepositoryInterface;
 use App\Data\Repository;
- 
+
 class ListRepository extends Repository {
- 
+
     /**
      * Specify Model class name
      * @return mixed
@@ -19,6 +19,6 @@ class ListRepository extends Repository {
     }
 
     function findById($list_id) {
-      return $this->model->with('items')->get()->find($list_id);
+        return $this->model->with('items')->get()->find($list_id);
     }
 }

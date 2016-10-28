@@ -4,14 +4,18 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $container = $app->getContainer();
 
-// Database
+/**
+ * Database Connection
+ */
 $capsule = new Capsule;
 $capsule->addConnection($container['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-// Logger
-$container['logger'] = function($c) {
+/**
+ * Logger
+ */
+$container['logger'] = function ($c) {
     $logger = new \Monolog\Logger('my_logger');
     $file_handler = new \Monolog\Handler\StreamHandler("../logs/app.log");
     $logger->pushHandler($file_handler);
@@ -19,7 +23,7 @@ $container['logger'] = function($c) {
 };
 
 /**
- * Create an instance of repositories and store them in DI Container 
+ * Create an instance of repositories and store them in DI Container
  * for use in dependency injection
  */
 $container['ListRepository'] = function ($c) {
@@ -41,5 +45,5 @@ $container['ListController'] = function ($c) {
 
 $container['ListItemController'] = function ($c) {
     $repository = $c->get('ListItemRepository');
-    return new App\Controllers\ListController($repository);
+    return new App\Controllers\ListItemController($repository);
 };

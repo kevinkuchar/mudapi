@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ListItem extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     * @var array
-     */
-    protected $fillable = ['item_name', 'is_complete'];
+    use SoftDeletes;
+
+    protected $fillable = ['list_id', 'item_name', 'is_complete'];
+    protected $dates = ['deleted_at'];
 
     /**
      * Relationship

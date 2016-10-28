@@ -18,7 +18,7 @@ class ListController
 
     /**
      * Retrieve all TodoList as JSON
-     * @return {Array<ToDoList>} 
+     * @return {Array<ToDoList>}
      */
     public function getAll(Request $request, Response $response, $args)
     {
@@ -27,8 +27,8 @@ class ListController
     }
 
     /**
-     * Retrieve a single ToDoList with nested ListItem objects 
-     * @return {ToDoList} with {Array<ListItem>} 
+     * Retrieve a single ToDoList with nested ListItem objects
+     * @return {ToDoList} with {Array<ListItem>}
      */
     public function getById(Request $request, Response $response, $args) {
         $list_id = (int)$args['id'];
@@ -39,7 +39,7 @@ class ListController
 
     /**
      * Create a new ToDoList
-     * @param {String} list_name 
+     * @param {String} list_name
      * @return {ToDoList}
      */
     public function createList(Request $request, Response $response, $args) {
@@ -47,7 +47,7 @@ class ListController
         $list = $this->list_repository->create([
             'list_name' => $data['list_name'],
         ]);
-        
+
         return $response->withJson($list, 200);
     }
 
