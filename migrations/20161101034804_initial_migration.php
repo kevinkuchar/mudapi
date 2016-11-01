@@ -27,7 +27,7 @@ class InitialMigration extends Migration
 
     public function down()
     {
-        $this->schema->drop('lists');
         $this->schema->drop('list_items');
+        $this->schema->drop('lists');
     }
 }

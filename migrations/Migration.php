@@ -21,7 +21,7 @@ class Migration extends AbstractMigration {
         $this->capsule->addConnection($settings['settings']['db']);
         $this->capsule->setAsGlobal();
         $this->capsule->bootEloquent();
-        
+
         $this->schema = $this->capsule->schema();
     }
 }
