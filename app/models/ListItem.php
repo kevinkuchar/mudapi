@@ -9,7 +9,7 @@ class ListItem extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['list_id', 'item_name', 'is_complete'];
+    protected $fillable = ['list_id', 'item_name', 'is_complete', 'expires_on'];
     protected $dates = ['deleted_at'];
 
     /**

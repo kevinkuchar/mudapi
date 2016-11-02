@@ -26,9 +26,16 @@ class ListItemController
     public function addItem(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
 
+        $expires_on = null;
+        if (isset($data['expires_on'])) {
+            $expires_on = new \DateTime($data['expires_on']);
+            $expires_on = $expires_on->format('Y-m-d');
+        }
+
         $list_item = $this->list_item_repository->create([
             'list_id' => $data['list_id'],
-            'item_name' => $data['item_name']
+            'item_name' => $data['item_name'],
+            'expires_on' => $expires_on
         ]);
 
         return $response->withJson($list_item, 200);

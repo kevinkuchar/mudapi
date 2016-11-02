@@ -8,7 +8,7 @@ class AddExpiration extends Migration
     {
         $this->schema->table('list_items', function(Illuminate\Database\Schema\Blueprint $table)
         {
-            $table->timestamp('expires_on');
+            $table->date('expires_on')->nullable();
         });
     }
 
