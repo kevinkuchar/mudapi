@@ -8,7 +8,7 @@ return [
             'driver'    => 'mysql',
             'host'      => 'localhost',
             'port'      => '3306',
-            'database'  => 'mud',
+            'database'  => 'to_do_list',
             'username'  => 'root',
             'password'  => '',
             'charset'   => 'utf8',

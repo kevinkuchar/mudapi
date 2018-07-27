@@ -4,9 +4,11 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Respect\Validation\Validator as v;
 
 use App\Models\ToDoList;
 use App\Data\ListRepository;
+use App\Models\ErrorModel;
 
 class ListController
 {
@@ -44,11 +46,16 @@ class ListController
      */
     public function createList(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
-        $list = $this->list_repository->create([
-            'list_name' => $data['list_name'],
-        ]);
 
-        return $response->withJson($list, 200);
+        $validName = v::notEmpty()->validate($data['list_name']);
+        if ($validName) {
+            $list = $this->list_repository->create([
+                'list_name' => $data['list_name'],
+            ]);
+            return $response->withJson($list, 200);
+        }
+
+        return $response->withJson((array) new ErrorModel('Fail', 401), 401);
     }
 
     public function updateList(Request $request, Response $response, $args) {
